@@ -93,8 +93,9 @@ public class CordovaLocationServices extends CordovaPlugin implements
 	 * @return True if the action was valid, or false if not.
 	 * @throws JSONException
 	 */
+	@Override
 	public boolean execute(final String action, final JSONArray args,
-			final CallbackContext callbackContext) {
+			final CallbackContext callbackContext) throws JSONException {
 
 		if (action == null || !action.matches("getLocation|addWatch|clearWatch")) {
 			return false;
@@ -139,13 +140,14 @@ public class CordovaLocationServices extends CordovaPlugin implements
 					"Google Play Services is not available on this device.",
 					callbackContext, false);
 		}
-		
+
 		return true;
 	}
 
 	/**
 	 * Called when the activity is to be shut down. Stop listener.
 	 */
+	@Override
 	public void onDestroy() {
 		if (mListener != null) {
 			mListener.destroy();
@@ -159,6 +161,7 @@ public class CordovaLocationServices extends CordovaPlugin implements
 	/**
 	 * Called when the view navigates. Stop the listeners.
 	 */
+	@Override
 	public void onReset() {
 		this.onDestroy();
 	}
